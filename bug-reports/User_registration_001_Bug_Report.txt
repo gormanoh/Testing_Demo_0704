@@ -1,0 +1,55 @@
+=================================================================
+BUG REPORT: Phone number is taking more than 10 digits
+=================================================================
+
+SUMMARY:
+The phone number input field allows users to enter more than the expected limit of 10 digits.
+
+SEVERITY: High
+PRIORITY: P1
+
+ENVIRONMENT:
+- Browser: Web Browser (latest version)
+- Test Date: 4/7/2026
+- Test Case: User_registration_001
+
+STEPS TO REPRODUCE:
+1. Navigate to the user registration page.
+2. Click on the "First Name" input field and enter "Testuser001".
+3. Click on the "Last Name" input field and enter "last009".
+4. Click on the "Email" input field and enter "testujfjj@gmail.com".
+5. Click on the "Phone Number" input field and enter "9632587413".
+6. Click on the "Occupation" dropdown and select "Student".
+7. Click on the "Gender" radio button and select "Male".
+8. Click on the "Password" input field and enter "sdfsdf".
+9. Click on the "Confirm Password" input field and enter "sdfsf".
+10. Submit the registration form.
+
+EXPECTED RESULT:
+The phone number input field should restrict input to a maximum of 10 digits.
+
+ACTUAL RESULT:
+The phone number input field allows users to enter more than 10 digits without any restrictions.
+
+IMPACT:
+This bug can lead to data integrity issues in the database, as phone numbers exceeding 10 digits may not be valid. It can also result in a poor user experience, as users may be confused about the expected format for phone numbers.
+
+ADDITIONAL OBSERVATIONS:
+- The issue appears to be consistent across different browsers and devices.
+- There is no validation message or error prompt when exceeding the digit limit.
+- Potential causes could include missing input validation rules in the front-end code.
+
+ATTACHMENTS:
+- Screenshots: Available in User_registration_001_Evidence.doc
+- Test Log: User_registration_001_Step_Log.csv
+
+SUGGESTED NEXT STEPS:
+1. Review the input validation logic for the phone number field in the front-end code.
+2. Implement a restriction to limit the input to 10 digits.
+3. Add an error message to inform users when they exceed the digit limit.
+4. Conduct regression testing to ensure that the fix does not affect other input fields.
+
+=================================================================
+Reported by: QA Automation
+Date: 4/7/2026, 4:20:57 PM
+=================================================================
