@@ -1,0 +1,10 @@
+Step number,Steps performed,Expected result
+1,User clicked element 'DIV',The action should be completed successfully
+2,User entered 'Testuser001' into input field 'First Name',The First Name field should contain 'Testuser001'
+3,User entered 'last009' into input field 'Last Name',The Last Name field should contain 'last009'
+4,User entered 'testujfjj@gmail.com' into email field 'email@example.com',The email@example.com field should contain 'testujfjj@gmail.com'
+5,User entered '9632587413' into phone number field 'enter your number',The enter your number field should contain '9632587413'
+6,User selected 'Student' from dropdown 'Occupation',The Occupation should be set to 'Student'
+7,User selected 'Male' radio button,The Male should be selected as 'Male'
+8,User entered 'sdfsdf' into password field 'Passsword',The Passsword field should be accepted
+9,User entered 'sdfsf' into password field 'Confirm Password',The Confirm Password field should be accepted
