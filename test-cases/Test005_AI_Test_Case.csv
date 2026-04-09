@@ -1,0 +1,11 @@
+Step number,Steps performed,Expected result
+1,User entered 'problem_user' into input field 'Username',The Username field should contain 'problem_user'
+2,User entered 'secret_sauce' into password field 'Password',The Password field should contain 'secret_sauce'
+3,User navigated to 'Swag Labs',The user should be redirected to Swag Labs
+4,User clicked 'remove sauce labs bike light' button,The remove sauce labs bike light should be completed successfully
+5,User clicked 'remove sauce labs backpack' button,The remove sauce labs backpack should be completed successfully
+6,User clicked 'add to cart sauce labs fleece jacket' button,The add to cart sauce labs fleece jacket should be completed successfully
+7,User clicked 'remove test.allthethings() t shirt (red)' button,The remove test.allthethings() t shirt (red) should be completed successfully
+8,User clicked 'add to cart test.allthethings() t shirt (red)' button,The add to cart test.allthethings() t shirt (red) should be completed successfully
+9,User clicked 'remove sauce labs onesie' button,The remove sauce labs onesie should be completed successfully
+10,User clicked 'add to cart sauce labs bolt t shirt' button,The add to cart sauce labs bolt t shirt should be completed successfully
