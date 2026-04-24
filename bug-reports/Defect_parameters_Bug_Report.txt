@@ -1,0 +1,52 @@
+=================================================================
+BUG REPORT: Phone Number Issue
+=================================================================
+
+SUMMARY:
+The application incorrectly allows phone numbers to exceed the maximum limit of 10 digits.
+
+SEVERITY: High  
+PRIORITY: P1  
+
+ENVIRONMENT:
+- Browser: Web Browser (latest version)
+- Test Date: 4/24/2026
+- Test Case: Defect_parameters
+
+STEPS TO REPRODUCE:
+1. Open the application in a web browser.
+2. Navigate to the input form.
+3. Enter "lastnae6398" into the input field labeled "Last Name".
+4. Enter "firsthfn639" into the input field labeled "First Name".
+5. Enter "fsdfsf@gmail.com" into the input field labeled "email@example.com".
+6. Enter "147852963" into the input field labeled "enter your number".
+7. Select "Doctor" from the dropdown labeled "Occupation".
+8. Select the "Male" radio button.
+9. Enter "sdfsdfdsfsdfsfsf" into the input field labeled "Password".
+10. Enter "sdfsfsdf" into the input field labeled "Confirm Password".
+
+EXPECTED RESULT:
+The input field for the phone number should restrict the user from entering more than 10 digits.
+
+ACTUAL RESULT:
+The input field for the phone number accepts input greater than 10 digits without any validation error.
+
+IMPACT:
+This bug can lead to incorrect data being stored in the system, which may cause issues in user communication and data integrity. It may also result in user frustration and a lack of trust in the application.
+
+ADDITIONAL OBSERVATIONS:
+The issue appears to be related to the input validation logic for the phone number field. There may be a lack of client-side validation or server-side checks that allow for this overflow.
+
+ATTACHMENTS:
+- Screenshots: Available in Defect_parameters_Evidence.doc
+- Test Log: Defect_parameters_Step_Log.csv
+
+SUGGESTED NEXT STEPS:
+1. Review the input validation rules for the phone number field.
+2. Implement a validation check to ensure that the phone number does not exceed 10 digits.
+3. Conduct regression testing to confirm that the fix does not affect other functionalities.
+
+=================================================================
+Reported by: QA Automation  
+Date: 4/24/2026, 8:55:45 AM  
+=================================================================
