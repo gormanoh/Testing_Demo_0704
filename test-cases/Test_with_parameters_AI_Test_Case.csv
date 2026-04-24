@@ -1,0 +1,12 @@
+Step number,Steps performed,Expected result
+1,User navigated to 'Let's Shop',The user should be redirected to 'Let's Shop'
+2,User entered 'testin456' into input field 'First Name',The First Name field should contain 'testin456'
+3,User entered 'lasdrty63' into input field 'Last Name',The Last Name field should contain 'lasdrty63'
+4,User entered 'sgdfgd@gmail.com' into email field 'email@example.com',The email@example.com field should contain 'sgdfgd@gmail.com'
+5,User entered '369852147' into phone number field 'enter your number',The enter your number field should contain '369852147'
+6,User selected 'Student' from dropdown 'Occupation',The Occupation should be set to 'Student'
+7,User selected 'Male' radio button,The Male should be selected as 'Male'
+8,User entered 'sfsfds' into password field 'Passsword',The Passsword field should be populated with 'sfsfds'
+9,User checked checkbox 'INPUT (checkbox)',The INPUT (checkbox) checkbox should be checked
+10,User submitted form 'FORM',The form should be submitted successfully
+11,User navigated to 'Let's Shop',The user should be redirected to 'Let's Shop'
