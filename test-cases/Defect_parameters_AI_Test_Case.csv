@@ -1,0 +1,9 @@
+Step number,Steps performed,Expected result
+1,User entered 'lastnae6398' into input field 'Last Name',The Last Name field should contain 'lastnae6398'
+2,User entered 'firsthfn639' into input field 'First Name',The First Name field should contain 'firsthfn639'
+3,User entered 'fsdfsf@gmail.com' into email field 'email@example.com',The email@example.com field should contain 'fsdfsf@gmail.com'
+4,User entered '147852963' into phone number field 'enter your number',The enter your number field should contain '147852963'
+5,User selected 'Doctor' from dropdown 'Occupation',The Occupation should be set to 'Doctor'
+6,User selected 'Male' radio button,The Male should be selected as 'Male'
+7,User entered 'sdfsdfdsfsdfsfsf' into password field 'Passsword',The Passsword field should contain 'sdfsdfdsfsdfsfsf'
+8,User entered 'sdfsfsdf' into password field 'Confirm Password',The Confirm Password field should contain 'sdfsfsdf'
