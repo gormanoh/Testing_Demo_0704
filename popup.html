@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>QA Master Recorder Pro</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body { 
+      width: 400px; 
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+      padding: 16px; 
+      background: linear-gradient(135deg, #0078d4 0%, #106ebe 100%);
+    }
+    
+    .container {
+      background: white;
+      border-radius: 8px;
+      padding: 16px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    
+    h3 { 
+      margin: 0 0 16px 0; 
+      color: #2d3748;
+      text-align: center; 
+      font-size: 18px;
+      font-weight: 600;
+      border-bottom: 2px solid #0078d4; 
+      padding-bottom: 8px; 
+    }
+    
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    
+    .tab {
+      flex: 1;
+      padding: 8px;
+      background: #e2e8f0;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 13px;
+      color: #4a5568;
+      transition: all 0.2s;
+    }
+    
+    .tab.active {
+      background: #0078d4;
+      color: white;
+    }
+    
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    
+    .status-box { 
+      padding: 12px; 
+      margin-bottom: 16px; 
+      border-radius: 6px; 
+      border: 2px solid #e2e8f0;
+      font-weight: 600;
+      text-align: center; 
+      background: white;
+      transition: all 0.3s ease;
+    }
+    
+    #stepCount {
+      display: none;
+      padding: 8px;
+      margin-bottom: 12px;
+      background: #edf2f7;
+      border-radius: 4px;
+      text-align: center;
+      font-size: 13px;
+      color: #4a5568;
+    }
+    
+    .btn-group { 
+      display: flex; 
+      flex-direction: column; 
+      gap: 10px; 
+    }
+    
+    button { 
+      padding: 12px; 
+      cursor: pointer; 
+      border-radius: 6px; 
+      border: none; 
+      color: white; 
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    button:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.15); }
+    button:active { transform: translateY(0); }
+    button:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    
+    #startBtn  { background: linear-gradient(135deg, #48bb78, #38a169); }
+    #pauseBtn  { background: linear-gradient(135deg, #718096, #4a5568); }
+    #bugBtn    { background: linear-gradient(135deg, #ed8936, #dd6b20); }
+    #previewBtn{ background: linear-gradient(135deg, #4299e1, #3182ce); }
+    #stopBtn   { background: linear-gradient(135deg, #f56565, #e53e3e); }
+    
+    #bugForm { 
+      display: none; 
+      margin-top: 12px; 
+      padding: 12px; 
+      background: #f7fafc;
+      border: 2px solid #e2e8f0;
+      border-radius: 6px;
+      animation: slideDown 0.3s ease;
+    }
+    
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    
+    input, textarea, select { 
+      width: 100%;
+      margin-bottom: 10px; 
+      padding: 8px 10px;
+      border: 1px solid #cbd5e0;
+      border-radius: 4px;
+      font-size: 13px;
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+    
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: #0078d4;
+      box-shadow: 0 0 0 3px rgba(0,120,212,0.1);
+    }
+    
+    textarea { height: 60px; resize: vertical; min-height: 60px; }
+    
+    #saveBug {
+      background: linear-gradient(135deg, #ed64a6, #d53f8c);
+      width: 100%;
+      margin-top: 4px;
+    }
+    
+    .message {
+      display: none;
+      padding: 10px;
+      margin-bottom: 12px;
+      border-radius: 4px;
+      font-size: 13px;
+      text-align: center;
+      animation: fadeIn 0.3s ease;
+    }
+    
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    
+    .message.success { background: #c6f6d5; color: #22543d; border: 1px solid #9ae6b4; }
+    .message.warning { background: #fef5e7; color: #744210; border: 1px solid #f6e05e; }
+    .message.info    { background: #bee3f8; color: #2c5282; border: 1px solid #90cdf4; }
+    .message.error   { background: #fed7d7; color: #742a2a; border: 1px solid #fc8181; }
+    
+    /* ---- ADO Settings styles ---- */
+    .settings-section { margin-bottom: 14px; }
+    
+    .settings-section h4 {
+      font-size: 13px;
+      font-weight: 700;
+      color: #0078d4;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    
+    .checkbox-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    
+    .checkbox-wrapper input[type="checkbox"] { width: auto; margin: 0; }
+    
+    .checkbox-wrapper label {
+      font-size: 13px;
+      color: #4a5568;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    
+    .help-text { font-size: 11px; color: #718096; margin-top: -6px; margin-bottom: 8px; }
+    
+    .ado-status {
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    
+    .ado-status.connected    { background: #c6f6d5; color: #22543d; }
+    .ado-status.disconnected { background: #fed7d7; color: #742a2a; }
+
+    .fields-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 10px;
+    }
+    
+    .fields-grid .field-label {
+      font-size: 11px;
+      color: #4a5568;
+      font-weight: 600;
+      margin-bottom: 2px;
+      margin-top: 4px;
+    }
+
+    #saveAdoConfig {
+      background: linear-gradient(135deg, #0078d4, #106ebe);
+    }
+    
+    #testAdoConnection {
+      background: linear-gradient(135deg, #805ad5, #6b46c1);
+    }
+
+    .version {
+      text-align: center;
+      margin-top: 12px;
+      font-size: 11px;
+      color: #a0aec0;
+    }
+
+    #showWidgetBtn {
+      background: linear-gradient(135deg, #2b6cb0, #2c5282);
+      display: none;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid #e2e8f0;
+      margin: 10px 0;
+    }
+
+    .scrollable-settings {
+      max-height: 430px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+    
+    .scrollable-settings::-webkit-scrollbar { width: 4px; }
+    .scrollable-settings::-webkit-scrollbar-thumb { background: #cbd5e0; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h3>🎯 QA Recorder Pro</h3>
+    
+    <div class="tabs">
+      <button class="tab active" data-tab="recorder">Recorder</button>
+      <button class="tab" data-tab="settings">ADO Settings</button>
+    </div>
+    
+    <div id="message" class="message"></div>
+    
+    <!-- ==================== RECORDER TAB ==================== -->
+    <div id="recorderTab" class="tab-content active">
+      <div id="status" class="status-box">⚪ Ready to Record</div>
+      
+      <div id="stepCount">Steps captured: 0</div>
+      
+      <div class="btn-group">
+        <button id="startBtn">▶️ Start Recording</button>
+        <button id="pauseBtn">⏸️ Pause / Resume</button>
+        <button id="showWidgetBtn">🔲 Show Step Widget</button>
+        <button id="previewBtn">👁️ Preview Steps</button>
+        <button id="bugBtn">⚠️ Raise Bug</button>
+        
+        <div id="bugForm">
+          <input type="text" id="bugTitle" placeholder="Bug Title (e.g., Login button not working)">
+          <textarea id="expResult" placeholder="Expected Result (What should happen?)"></textarea>
+          <textarea id="actResult" placeholder="Actual Result (What actually happened?)"></textarea>
+          <button id="saveBug">💾 Save Bug & Export</button>
+        </div>
+        
+        <button id="stopBtn">⏹️ Stop & Export All</button>
+      </div>
+    </div>
+    
+    <!-- ==================== ADO SETTINGS TAB ==================== -->
+    <div id="settingsTab" class="tab-content">
+      <div id="adoStatus" class="ado-status disconnected">
+        Azure DevOps: Not configured
+      </div>
+
+      <div class="scrollable-settings">
+
+        <!-- Enable toggle -->
+        <div class="settings-section">
+          <div class="checkbox-wrapper">
+            <input type="checkbox" id="enableAdo">
+            <label for="enableAdo">Enable Azure DevOps Export</label>
+          </div>
+          <p class="help-text">Automatically create Test Cases and Defects in ADO when recording stops</p>
+        </div>
+
+        <hr class="divider">
+
+        <!-- Connection settings -->
+        <div class="settings-section">
+          <h4>🔗 Connection</h4>
+
+          <div class="field-label">Organization URL</div>
+          <input type="text" id="adoOrgUrl" placeholder="https://dev.azure.com/YourOrg">
+          <p class="help-text">e.g. https://dev.azure.com/sompoit</p>
+
+          <div class="field-label">Project Name</div>
+          <input type="text" id="adoProject" placeholder="Project name (e.g. Endurance)">
+
+          <div class="field-label">Personal Access Token (PAT)</div>
+          <input type="password" id="adoPat" placeholder="Paste your PAT here">
+          <p class="help-text">Create at: dev.azure.com → User Settings → Personal Access Tokens (needs Work Items: Read & Write)</p>
+        </div>
+
+        <hr class="divider">
+
+        <!-- Default field values -->
+        <div class="settings-section">
+          <h4>📋 Default Field Values</h4>
+          <p class="help-text" style="margin-bottom:8px">Applied to both Test Cases and Defects created in ADO</p>
+
+          <div class="fields-grid">
+            <div>
+              <div class="field-label">Area Path</div>
+              <input type="text" id="fieldAreaPath" placeholder="e.g. Endurance">
+            </div>
+            <div>
+              <div class="field-label">Iteration Path</div>
+              <input type="text" id="fieldIterationPath" placeholder="e.g. Endurance">
+            </div>
+            <div>
+              <div class="field-label">Tags</div>
+              <input type="text" id="fieldTags" placeholder="e.g. bddrecorder">
+            </div>
+            <div>
+              <div class="field-label">Segment</div>
+              <input type="text" id="fieldSegment" placeholder="e.g. Insurance">
+            </div>
+            <div>
+              <div class="field-label">Business Area</div>
+              <input type="text" id="fieldBusinessArea" placeholder="e.g. Underwriting">
+            </div>
+            <div>
+              <div class="field-label">Business Unit</div>
+              <input type="text" id="fieldBusinessUnit" placeholder="e.g. Canada Energy">
+            </div>
+            <div>
+              <div class="field-label">Project (Custom)</div>
+              <input type="text" id="fieldProject" placeholder="e.g. Canada Domestic">
+            </div>
+            <div>
+              <div class="field-label">Application</div>
+              <input type="text" id="fieldApplication" placeholder="e.g. Policy - GuideWire">
+            </div>
+          </div>
+
+            </div>
+          <!-- User Story linkage — required by Endurance process template -->
+          <div class="fields-grid" style="margin-top:4px">
+            <div>
+              <div class="field-label">User Story ID <span style="color:#e53e3e">*</span></div>
+              <input type="number" id="fieldUserStoryId" placeholder="e.g. 98765">
+            </div>
+            <div>
+              <div class="field-label">User Story Title</div>
+              <input type="text" id="fieldUserStoryTitle" placeholder="e.g. Login Flow">
+            </div>
+          </div>
+          <p class="help-text" style="color:#c53030;font-weight:600;margin-top:2px">
+            ⚠️ Required — your ADO project enforces User Story linkage on Test Cases
+          </p>
+
+          <!-- Test Plan / Suite linkage -->
+          <div class="field-label" style="margin-top:8px">Test Plan ID</div>
+          <input type="number" id="fieldTestPlanId" placeholder="e.g. 1234 (leave blank to skip)">
+          <p class="help-text">The numeric ID of the ADO Test Plan where new Test Cases will be placed</p>
+
+          <div class="field-label">Test Suite ID</div>
+          <input type="number" id="fieldTestSuiteId" placeholder="e.g. 5678 (leave blank to skip)">
+          <p class="help-text">The numeric ID of the Test Suite (child suite) inside the plan above</p>
+
+        <!-- Defect-specific fields -->
+          <div class="field-label" style="margin-top:6px">Default Severity (Defects)</div>
+          <select id="fieldSeverity">
+            <option value="1 - Critical">1 - Critical</option>
+            <option value="2 - High">2 - High</option>
+            <option value="3 - Medium" selected>3 - Medium</option>
+            <option value="4 - Low">4 - Low</option>
+          </select>
+
+          <div class="field-label">Default Priority</div>
+          <select id="fieldPriority">
+            <option value="1">1 - High</option>
+            <option value="2">2 - Medium</option>
+            <option value="3" selected>3 - Low</option>
+            <option value="4">4 - Very Low</option>
+          </select>
+        </div>
+
+        <hr class="divider">
+
+        <div class="btn-group">
+          <button id="saveAdoConfig">💾 Save ADO Settings</button>
+          <button id="testAdoConnection">🔌 Test Connection</button>
+        </div>
+
+      </div><!-- end scrollable -->
+    </div><!-- end settingsTab -->
+    
+    <div class="version">v12.0 — Azure DevOps Integration</div>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
