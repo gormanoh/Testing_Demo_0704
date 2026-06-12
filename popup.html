@@ -288,6 +288,23 @@
         </div>
         
         <button id="stopBtn">⏹️ Stop & Export All</button>
+
+        <!-- ADO Push Panel — shown after Stop or Raise Bug -->
+        <div id="adoPushPanel" style="display:none; margin-top:10px; padding:12px; background:#f7fafc; border:2px solid #e2e8f0; border-radius:6px; animation: slideDown 0.3s ease;">
+          <div style="font-size:13px; font-weight:700; color:#2d3748; margin-bottom:8px;">📤 Push to Azure DevOps</div>
+          <div id="adoPushStatus" style="font-size:12px; color:#4a5568; margin-bottom:8px;"></div>
+          <button id="pushToAdoBtn" style="background:linear-gradient(135deg,#0078d4,#106ebe); width:100%; margin-bottom:6px;">🚀 Push to ADO</button>
+          <button id="adoPushDismissBtn" style="background:transparent; color:#4a5568; border:1px solid #cbd5e0; border-radius:6px; padding:6px; font-size:12px; font-weight:600; width:100%; cursor:pointer;">✕ Dismiss</button>
+        </div>
+
+        <!-- ADO Result Panel — shows success or error+retry after a push attempt -->
+        <div id="adoResultPanel" style="display:none; margin-top:10px; padding:12px; border-radius:6px; font-size:13px; border:2px solid; animation: slideDown 0.3s ease;">
+          <div id="adoResultContent"></div>
+          <button id="adoRetryBtn" style="display:none; background:linear-gradient(135deg,#e53e3e,#c53030); width:100%; margin-top:8px;">🔄 Retry ADO Push</button>
+          <button id="adoFixSettingsBtn" style="display:none; background:linear-gradient(135deg,#805ad5,#6b46c1); width:100%; margin-top:6px;">⚙️ Fix ADO Settings</button>
+          <button id="adoResultDismissBtn" style="background:transparent; color:#742a2a; border:1px solid #fc8181; border-radius:6px; padding:4px 10px; font-size:11px; font-weight:600; width:100%; cursor:pointer; margin-top:6px;">✕ Dismiss</button>
+        </div>
+
       </div>
     </div>
     
@@ -368,7 +385,8 @@
             </div>
           </div>
 
-            </div>
+          </div><!-- end fields-grid -->
+
           <!-- User Story linkage — required by Endurance process template -->
           <div class="fields-grid" style="margin-top:4px">
             <div>
@@ -410,6 +428,8 @@
             <option value="4">4 - Very Low</option>
           </select>
         </div>
+
+        </div><!-- end settings-section Default Fields -->
 
         <hr class="divider">
 

@@ -51,9 +51,10 @@ function loadAdoSettings() {
         document.getElementById('fieldProject').value       = fields['Endurance.Common.Project']      || 'Canada Domestic';
         document.getElementById('fieldApplication').value   = fields['Endurance.SDLC.Application']    || 'Policy - GuideWire';
 
-        document.getElementById('fieldChangeRequestId').value = cfg.changeRequestId || '';
-        document.getElementById('fieldTestPlanId').value      = cfg.testPlanId  || '';
-        document.getElementById('fieldTestSuiteId').value     = cfg.testSuiteId || '';
+        document.getElementById('fieldUserStoryId').value    = cfg.changeRequestId || cfg.userStoryId || '';
+        document.getElementById('fieldUserStoryTitle').value = cfg.userStoryTitle || '';
+        document.getElementById('fieldTestPlanId').value     = cfg.testPlanId  || '';
+        document.getElementById('fieldTestSuiteId').value    = cfg.testSuiteId || '';
 
         document.getElementById('fieldSeverity').value = cfg.defaultSeverity || '3 - Medium';
         document.getElementById('fieldPriority').value = String(cfg.defaultPriority || '3');
@@ -108,10 +109,11 @@ document.getElementById('saveAdoConfig').addEventListener('click', () => {
         }
     }
 
-    // Warn if ADO enabled but Change Request ID is blank
-    const changeRequestId = document.getElementById('fieldChangeRequestId').value.trim() || null;
+    // Warn if ADO enabled but User Story ID is blank
+    const changeRequestId = document.getElementById('fieldUserStoryId').value.trim() || null;
+    const userStoryTitle  = document.getElementById('fieldUserStoryTitle').value.trim() || null;
     if (enabled && !changeRequestId) {
-        showMessage('⚠️ Warning: Change Request ID is blank. Your ADO project requires it — work item creation will fail.', 'warning');
+        showMessage('⚠️ Warning: User Story ID is blank. Your ADO project requires it — work item creation will fail.', 'warning');
     }
 
     const config = {
@@ -119,7 +121,9 @@ document.getElementById('saveAdoConfig').addEventListener('click', () => {
         orgUrl,
         project,
         pat,
-        changeRequestId: changeRequestId,
+        changeRequestId: changeRequestId,   // kept for background.js compatibility
+        userStoryId:     changeRequestId,
+        userStoryTitle:  userStoryTitle,
         testPlanId:  parseInt(document.getElementById('fieldTestPlanId').value.trim(), 10)  || null,
         testSuiteId: parseInt(document.getElementById('fieldTestSuiteId').value.trim(), 10) || null,
         defaultSeverity: severity,
